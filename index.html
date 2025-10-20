@@ -20,11 +20,21 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="MPhotography_CM">
     <meta property="og:locale" content="en_US">
-     <!-- Background Audio -->
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/soothing-ocean-waves-372489.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+     <audio id="backgroundMusic" autoplay loop>
+    <source src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/soothing-ocean-waves-372489.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // Try to play automatically
+    window.addEventListener('load', function() {
+        var audio = document.getElementById('backgroundMusic');
+        audio.play().catch(function(error) {
+            console.log("Autoplay prevented");
+            // Show a play button if autoplay fails
+            document.body.innerHTML += '<button onclick="document.getElementById(\'backgroundMusic\').play(); this.remove();" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; padding: 20px; background: #000; color: white; border: none; border-radius: 10px; cursor: pointer;">🎵 Click to Enable Sound</button>';
+        });
+    });
+</script>
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@mphotography_cm">
