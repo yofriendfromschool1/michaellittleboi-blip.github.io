@@ -1,551 +1,1069 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="MPhotography_CM - Professional photography services in Tri-Cities">
-    
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://raw.githubusercontent.com">
     <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
     <link rel="preconnect" href="https://source.unsplash.com">
     <link rel="dns-prefetch" href="https://source.unsplash.com">
-    
-    <link rel="icon" type="image/x-icon" href="/CameraIcon.ico">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/favicon.ico">
     <meta name="theme-color" content="#000000">
     <title>MPhotography_CM - Photography</title>
-    
     <!-- Critical CSS (inline only essential above-the-fold styles) -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        :root {
-            --bg-primary: #000000;
-            --bg-secondary: #0a0a0a;
-            --bg-card: #1a1a1a;
-            --text-primary: #f5f5f7;
-            --text-secondary: #86868b;
-            --accent: #0071e3;
-            --border: #2d2d2d;
-        }
+      :root {
+        --bg-primary: #000000;
+        --bg-secondary: #0a0a0a;
+        --bg-card: #1a1a1a;
+        --text-primary: #f5f5f7;
+        --text-secondary: #86868b;
+        --accent: #0071e3;
+        --border: #2d2d2d;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
 
-        /* Critical hero styles */
-        .hero {
-            height: 100vh;
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 5%;
-            position: relative;
-            background-color: #000;
-        }
+      /* Critical hero styles */
+      .hero {
+        height: 100vh;
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 5%;
+        position: relative;
+        background-color: #000;
+      }
 
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 0;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
 
-        .hero-bg.loaded {
-            opacity: 1;
-        }
+      .hero-bg.loaded {
+        opacity: 1;
+      }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
 
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.5rem 5%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
     </style>
-
     <!-- Load non-critical CSS asynchronously -->
     <link rel="preload" href="data:text/css;base64,..." as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="data:text/css;base64,..."></noscript>
-</head>
-<body>
+    <noscript>
+      <link rel="stylesheet" href="data:text/css;base64,...">
+    </noscript>
+  </head>
+  <body>
     <!-- Navigation -->
     <nav id="navbar">
-        <div class="nav-container">
-            <div class="logo">MPhotography_CM</div>
-            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+      <div class="nav-container">
+        <div class="logo">MPhotography_CM</div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li>
+            <a href="#home">Home</a>
+          </li>
+          <li>
+            <a href="#portfolio">Portfolio</a>
+          </li>
+          <li>
+            <a href="#about">About</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
     </nav>
-
     <!-- Hero Section with optimized background loading -->
     <section class="hero" id="home">
-        <div class="hero-bg" id="heroBg"></div>
-        <h1 style="position: relative; z-index: 2;">Freelance Photographer</h1>
-        <p class="subtitle" style="position: relative; z-index: 2;">Capturing memories and moments that matter</p>
-        <div class="scroll-indicator" style="position: relative; z-index: 2;"></div>
+      <div class="hero-bg" id="heroBg"></div>
+      <h1 style="position: relative; z-index: 2;">Freelance Photographer</h1>
+      <p class="subtitle" style="position: relative; z-index: 2;">Capturing memories and moments that matter</p>
+      <div class="scroll-indicator" style="position: relative; z-index: 2;"></div>
     </section>
-
     <!-- Portfolio Section -->
     <section class="portfolio" id="portfolio">
-        <h2 class="section-title">Selected Works</h2>
-        <div class="gallery">
-            <!-- Use smaller, optimized image URLs with lazy loading -->
-            <div class="gallery-item loading" data-index="0">
-                <img data-src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC1442.jpg" 
-                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
-                     alt="Portrait Photography" 
-                     loading="lazy"
-                     class="lazy">
-            </div>
-            <div class="gallery-item loading" data-index="1">
-                <img data-src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC1292.jpg" 
-                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
-                     alt="Wedding Photography" 
-                     loading="lazy"
-                     class="lazy">
-            </div>
-            <div class="gallery-item loading" data-index="2">
-                <img data-src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC2398.jpg" 
-                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
-                     alt="Nature Photography" 
-                     loading="lazy"
-                     class="lazy">
-            </div>
-            <div class="gallery-item loading" data-index="3">
-                <img data-src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC2512.jpg" 
-                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
-                     alt="Aesthetic Photography" 
-                     loading="lazy"
-                     class="lazy">
-            </div>
-            <div class="gallery-item loading" data-index="4">
-                <img data-src="https://source.unsplash.com/800x600/?nature" 
-                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
-                     alt="need more Photography" 
-                     loading="lazy"
-                     class="lazy">
-            </div>
-            <div class="gallery-item loading" data-index="5">
-                <img data-src="https://source.unsplash.com/800x600/?minimal" 
-                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
-                     alt="need more Photography" 
-                     loading="lazy"
-                     class="lazy">
-            </div>
+      <h2 class="section-title">Selected Works</h2>
+      <div class="gallery">
+        <!-- Use smaller, optimized image URLs with lazy loading -->
+        <div class="gallery-item loading" data-index="0">
+          <img data-src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC1442.jpg" src="data:image/svg+xml,%3Csvg
+																	xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E" alt="Portrait Photography" loading="lazy" class="lazy">
         </div>
+        <div class="gallery-item loading" data-index="1">
+          <img data-src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC1292.jpg" src="data:image/svg+xml,%3Csvg
+																		xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E" alt="Wedding Photography" loading="lazy" class="lazy">
+        </div>
+        <div class="gallery-item loading" data-index="2">
+          <img data-src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC2398.jpg" src="data:image/svg+xml,%3Csvg
+																			xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E" alt="Nature Photography" loading="lazy" class="lazy">
+        </div>
+        <div class="gallery-item loading" data-index="3">
+          <img data-src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC2512.jpg" src="data:image/svg+xml,%3Csvg
+																				xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E" alt="Aesthetic Photography" loading="lazy" class="lazy">
+        </div>
+        <div class="gallery-item loading" data-index="4">
+          <img data-src="https://source.unsplash.com/800x600/?nature" src="data:image/svg+xml,%3Csvg
+																					xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E" alt="need more Photography" loading="lazy" class="lazy">
+        </div>
+        <div class="gallery-item loading" data-index="5">
+          <img data-src="https://source.unsplash.com/800x600/?minimal" src="data:image/svg+xml,%3Csvg
+																						xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E" alt="need more Photography" loading="lazy" class="lazy">
+        </div>
+      </div>
     </section>
-
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" aria-label="Close"></button>
-        <button class="lightbox-nav lightbox-prev" aria-label="Previous"></button>
-        <div class="lightbox-content">
-            <img src="" alt="" class="lightbox-img" id="lightboxImg">
-        </div>
-        <button class="lightbox-nav lightbox-next" aria-label="Next"></button>
-        <div class="lightbox-counter">
-            <span id="currentIndex">1</span> / <span id="totalImages">6</span>
-        </div>
+      <button class="lightbox-close" aria-label="Close"></button>
+      <button class="lightbox-nav lightbox-prev" aria-label="Previous"></button>
+      <div class="lightbox-content">
+        <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      </div>
+      <button class="lightbox-nav lightbox-next" aria-label="Next"></button>
+      <div class="lightbox-counter">
+        <span id="currentIndex">1</span> / <span id="totalImages">6</span>
+      </div>
     </div>
-
     <!-- About Section -->
     <section class="about" id="about">
-        <div class="about-container">
-            <h2 class="section-title">About</h2>
-            <p>
-                I'm a passionate young photographer based in Tri-Cities, who is waiting and willing to take your next
-                portrait pictures, one shot at a time. 
-            </p>
-            <p>
-                My work spans across portrait, and weddings  
-                and am always seeking to find beauty in the everyday.
-            </p>
-        </div>
+      <div class="about-container">
+        <h2 class="section-title">About</h2>
+        <p> I'm a passionate young photographer based in Tri-Cities, who is waiting and willing to take your next portrait pictures, one shot at a time. </p>
+        <p> My work spans across portrait, and weddings and am always seeking to find beauty in the everyday. </p>
+      </div>
     </section>
-
     <!-- Contact Section -->
     <section class="contact" id="contact">
-        <h2 class="section-title">Let's Connect</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-            Available for projects and collaborations worldwide
-        </p>
-        
-        <div class="social-links">
-            <a href="https://www.instagram.com/mphotography_cm/" class="social-link" target="_blank" rel="noopener noreferrer">
-                <svg fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"/>
-                </svg>
-                Instagram
-            </a>
-        </div>
-        
-        <a href="mailto:michaellittleboi@gmail.com" class="email-link">Get in Touch</a>
+      <h2 class="section-title">Let's Connect</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;"> Available for projects and collaborations worldwide </p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/mphotography_cm/" class="social-link" target="_blank" rel="noopener noreferrer">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z" />
+          </svg> Instagram </a>
+      </div>
+      <a href="mailto:michaellittleboi@gmail.com" class="email-link">Get in Touch</a>
     </section>
-
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 MPhotography_CM. All rights reserved.</p>
+      <p>&copy; 2025 MPhotography_CM. All rights reserved.</p>
     </footer>
-
     <!-- Load rest of styles -->
     <style>
-        body.no-scroll { overflow: hidden; }
-        nav.scrolled { padding: 1rem 5%; background: rgba(0, 0, 0, 0.95); }
-        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.2rem; font-weight: 500; letter-spacing: -0.5px; z-index: 1001; }
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; padding: 0.5rem 0; }
-        .nav-links a:hover { color: var(--text-primary); }
-        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 24px; height: 18px; background: transparent; border: none; cursor: pointer; z-index: 1001; padding: 0; }
-        .menu-toggle span { display: block; height: 2px; width: 100%; background: var(--text-primary); transition: all 0.3s ease; transform-origin: center; }
-        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-        .menu-toggle.active span:nth-child(2) { opacity: 0; }
-        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
-        .hero h1, .hero .subtitle, .hero .scroll-indicator { position: relative; z-index: 2; }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 600; letter-spacing: -2px; margin-bottom: 1rem; opacity: 0; animation: fadeInUp 1s ease forwards; padding: 0 1rem; }
-        .hero .subtitle { font-size: clamp(1rem, 3vw, 1.8rem); color: var(--text-secondary); font-weight: 300; opacity: 0; animation: fadeInUp 1s ease 0.2s forwards; padding: 0 1rem; max-width: 90%; }
-        .scroll-indicator { position: absolute; bottom: -1rem; width: 24px; height: 40px; border: 2px solid var(--text-secondary); border-radius: 12px; opacity: 0; animation: fadeIn 1s ease 0.5s forwards; }
-        .scroll-indicator::before { content: ''; position: absolute; top: 8px; left: 50%; width: 4px; height: 8px; background: var(--text-secondary); border-radius: 2px; transform: translateX(-50%); animation: scroll 2s infinite; }
-        .portfolio { padding: 5rem 5%; max-width: 1400px; margin: 0 auto; }
-        .section-title { font-size: clamp(2rem, 5vw, 2.5rem); margin-bottom: 3rem; font-weight: 500; letter-spacing: -1px; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)); gap: 1.5rem; margin-bottom: 5rem; }
-        .gallery-item { position: relative; overflow: hidden; border-radius: 12px; background: var(--bg-card); aspect-ratio: 4/3; cursor: pointer; transition: transform 0.5s ease; -webkit-tap-highlight-color: transparent; }
-        .gallery-item:hover { transform: scale(0.98); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-item:nth-child(2) img { object-position: center 20%; }
-        .gallery-item:hover img { transform: scale(1.05); }
-        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 2000; opacity: 0; transition: opacity 0.3s ease; }
-        .lightbox.active { display: flex; align-items: center; justify-content: center; }
-        .lightbox.show { opacity: 1; }
-        .lightbox-content { position: relative; max-width: 90vw; max-height: 90vh; display: flex; align-items: center; justify-content: center; }
-        .lightbox-img { max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 8px; opacity: 0; transform: scale(0.9); transition: all 0.3s ease; user-select: none; -webkit-user-select: none; }
-        .lightbox.show .lightbox-img { opacity: 1; transform: scale(1); }
-        .lightbox-close { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 2001; }
-        .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); transform: rotate(90deg); }
-        .lightbox-close::before, .lightbox-close::after { content: ''; position: absolute; width: 20px; height: 2px; background: white; }
-        .lightbox-close::before { transform: rotate(45deg); }
-        .lightbox-close::after { transform: rotate(-45deg); }
-        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 2001; }
-        .lightbox-nav:hover { background: rgba(255, 255, 255, 0.2); }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        .lightbox-nav::after { content: ''; width: 12px; height: 12px; border-top: 2px solid white; border-right: 2px solid white; }
-        .lightbox-prev::after { transform: rotate(-135deg); margin-left: 4px; }
-        .lightbox-next::after { transform: rotate(45deg); margin-right: 4px; }
-        .lightbox-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--text-secondary); font-size: 0.9rem; background: rgba(0, 0, 0, 0.5); padding: 0.5rem 1rem; border-radius: 20px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-        .about { padding: 5rem 5%; background: var(--bg-secondary); }
-        .about-container { max-width: 900px; margin: 0 auto; text-align: center; }
-        .about p { font-size: clamp(1rem, 2.5vw, 1.1rem); color: var(--text-secondary); line-height: 1.8; margin-bottom: 2rem; }
-        .contact { padding: 5rem 5%; max-width: 900px; margin: 0 auto; text-align: center; }
-        .social-links { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
-        .social-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; color: var(--text-primary); text-decoration: none; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; min-height: 48px; }
-        .social-link:hover, .social-link:active { background: var(--border); transform: translateY(-2px); }
-        .social-link svg { width: 20px; height: 20px; }
-        .email-link { display: inline-block; margin-top: 2rem; padding: 1rem 2rem; background: var(--accent); color: white; text-decoration: none; border-radius: 100px; font-weight: 500; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; min-height: 48px; display: inline-flex; align-items: center; }
-        .email-link:hover, .email-link:active { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 113, 227, 0.3); }
-        footer { padding: 3rem 5%; text-align: center; color: var(--text-secondary); font-size: clamp(0.85rem, 2vw, 0.9rem); border-top: 1px solid var(--border); }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(30px); } }
-        @keyframes fadeIn { to { opacity: 1; } }
-        @keyframes scroll { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
-        .loading { opacity: 0; transform: translateY(20px); }
-        .loaded { opacity: 1; transform: translateY(0); transition: all 0.8s ease; }
-        @media (max-width: 1024px) { .gallery { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); } .nav-links { gap: 1.5rem; } }
-        @media (max-width: 768px) { nav { padding: 1rem 5%; } .menu-toggle { display: flex; } .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.98); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; z-index: 999; } .nav-links.active { display: flex; } .nav-links a { font-size: 1.2rem; padding: 1rem; } .hero { background-attachment: scroll; background-size: cover; background-position: center; } .gallery { gap: 1rem; } .portfolio, .about, .contact { padding: 3rem 5%; } .social-links { flex-direction: column; align-items: center; gap: 1rem; } .social-link { width: 200px; justify-content: center; } .lightbox-nav { width: 40px; height: 40px; } .lightbox-prev { left: 10px; } .lightbox-next { right: 10px; } }
-        @media (max-width: 480px) { .hero { min-height: 100vh; padding: 0 3%; } .hero h1 { font-size: 2rem; letter-spacing: -1px; } .hero .subtitle { font-size: 1rem; } .section-title { font-size: 1.75rem; } .gallery { grid-template-columns: 1fr; } .portfolio, .about, .contact { padding: 2rem 3%; } .about p { font-size: 0.95rem; } .lightbox-img { max-width: 95vw; max-height: 80vh; } }
-        @media (hover: none) { .gallery-item:hover { transform: none; } .gallery-item:active { transform: scale(0.98); } .social-link:hover { transform: none; background: var(--bg-card); } .social-link:active { background: var(--border); } .email-link:hover { transform: none; box-shadow: none; } .email-link:active { transform: scale(0.98); } .lightbox-nav:hover { background: rgba(255, 255, 255, 0.1); } .lightbox-close:hover { background: rgba(255, 255, 255, 0.1); transform: none; } }
-        @media (max-width: 768px) and (orientation: landscape) { .hero { min-height: 100vh; } .hero h1 { font-size: 2.5rem; } .scroll-indicator { bottom: 1rem; } .lightbox-img { max-height: 85vh; } }
+      body.no-scroll {
+        overflow: hidden;
+      }
+
+      nav.scrolled {
+        padding: 1rem 5%;
+        background: rgba(0, 0, 0, 0.95);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: -0.5px;
+        z-index: 1001;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+        padding: 0.5rem 0;
+      }
+
+      .nav-links a:hover {
+        color: var(--text-primary);
+      }
+
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 18px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1001;
+        padding: 0;
+      }
+
+      .menu-toggle span {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: var(--text-primary);
+        transition: all 0.3s ease;
+        transform-origin: center;
+      }
+
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+
+      .hero h1,
+      .hero .subtitle,
+      .hero .scroll-indicator {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        font-weight: 600;
+        letter-spacing: -2px;
+        margin-bottom: 1rem;
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards;
+        padding: 0 1rem;
+      }
+
+      .hero .subtitle {
+        font-size: clamp(1rem, 3vw, 1.8rem);
+        color: var(--text-secondary);
+        font-weight: 300;
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.2s forwards;
+        padding: 0 1rem;
+        max-width: 90%;
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: -1rem;
+        width: 24px;
+        height: 40px;
+        border: 2px solid var(--text-secondary);
+        border-radius: 12px;
+        opacity: 0;
+        animation: fadeIn 1s ease 0.5s forwards;
+      }
+
+      .scroll-indicator::before {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        width: 4px;
+        height: 8px;
+        background: var(--text-secondary);
+        border-radius: 2px;
+        transform: translateX(-50%);
+        animation: scroll 2s infinite;
+      }
+
+      .portfolio {
+        padding: 5rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+        margin-bottom: 3rem;
+        font-weight: 500;
+        letter-spacing: -1px;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+        gap: 1.5rem;
+        margin-bottom: 5rem;
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        background: var(--bg-card);
+        aspect-ratio: 4/3;
+        cursor: pointer;
+        transition: transform 0.5s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .gallery-item:hover {
+        transform: scale(0.98);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .gallery-item:nth-child(2) img {
+        object-position: center 20%;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 2000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .lightbox.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lightbox.show {
+        opacity: 1;
+      }
+
+      .lightbox-content {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lightbox-img {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 8px;
+        opacity: 0;
+        transform: scale(0.9);
+        transition: all 0.3s ease;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      .lightbox.show .lightbox-img {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 2001;
+      }
+
+      .lightbox-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(90deg);
+      }
+
+      .lightbox-close::before,
+      .lightbox-close::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 2px;
+        background: white;
+      }
+
+      .lightbox-close::before {
+        transform: rotate(45deg);
+      }
+
+      .lightbox-close::after {
+        transform: rotate(-45deg);
+      }
+
+      .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 2001;
+      }
+
+      .lightbox-nav:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .lightbox-prev {
+        left: 20px;
+      }
+
+      .lightbox-next {
+        right: 20px;
+      }
+
+      .lightbox-nav::after {
+        content: '';
+        width: 12px;
+        height: 12px;
+        border-top: 2px solid white;
+        border-right: 2px solid white;
+      }
+
+      .lightbox-prev::after {
+        transform: rotate(-135deg);
+        margin-left: 4px;
+      }
+
+      .lightbox-next::after {
+        transform: rotate(45deg);
+        margin-right: 4px;
+      }
+
+      .lightbox-counter {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .about {
+        padding: 5rem 5%;
+        background: var(--bg-secondary);
+      }
+
+      .about-container {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .about p {
+        font-size: clamp(1rem, 2.5vw, 1.1rem);
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      .contact {
+        padding: 5rem 5%;
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+        min-height: 48px;
+      }
+
+      .social-link:hover,
+      .social-link:active {
+        background: var(--border);
+        transform: translateY(-2px);
+      }
+
+      .social-link svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .email-link {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        background: var(--accent);
+        color: white;
+        text-decoration: none;
+        border-radius: 100px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .email-link:hover,
+      .email-link:active {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 113, 227, 0.3);
+      }
+
+      footer {
+        padding: 3rem 5%;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: clamp(0.85rem, 2vw, 0.9rem);
+        border-top: 1px solid var(--border);
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes scroll {
+
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+
+        50% {
+          transform: translateX(-50%) translateY(8px);
+        }
+      }
+
+      .loading {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .loaded {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.8s ease;
+      }
+
+      @media (max-width: 1024px) {
+        .gallery {
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+        }
+
+        .nav-links {
+          gap: 1.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          padding: 1rem 5%;
+        }
+
+        .menu-toggle {
+          display: flex;
+        }
+
+        .nav-links {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.98);
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 2rem;
+          z-index: 999;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links a {
+          font-size: 1.2rem;
+          padding: 1rem;
+        }
+
+        .hero {
+          background-attachment: scroll;
+          background-size: cover;
+          background-position: center;
+        }
+
+        .gallery {
+          gap: 1rem;
+        }
+
+        .portfolio,
+        .about,
+        .contact {
+          padding: 3rem 5%;
+        }
+
+        .social-links {
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .social-link {
+          width: 200px;
+          justify-content: center;
+        }
+
+        .lightbox-nav {
+          width: 40px;
+          height: 40px;
+        }
+
+        .lightbox-prev {
+          left: 10px;
+        }
+
+        .lightbox-next {
+          right: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero {
+          min-height: 100vh;
+          padding: 0 3%;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+          letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+          font-size: 1rem;
+        }
+
+        .section-title {
+          font-size: 1.75rem;
+        }
+
+        .gallery {
+          grid-template-columns: 1fr;
+        }
+
+        .portfolio,
+        .about,
+        .contact {
+          padding: 2rem 3%;
+        }
+
+        .about p {
+          font-size: 0.95rem;
+        }
+
+        .lightbox-img {
+          max-width: 95vw;
+          max-height: 80vh;
+        }
+      }
+
+      @media (hover: none) {
+        .gallery-item:hover {
+          transform: none;
+        }
+
+        .gallery-item:active {
+          transform: scale(0.98);
+        }
+
+        .social-link:hover {
+          transform: none;
+          background: var(--bg-card);
+        }
+
+        .social-link:active {
+          background: var(--border);
+        }
+
+        .email-link:hover {
+          transform: none;
+          box-shadow: none;
+        }
+
+        .email-link:active {
+          transform: scale(0.98);
+        }
+
+        .lightbox-nav:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lightbox-close:hover {
+          background: rgba(255, 255, 255, 0.1);
+          transform: none;
+        }
+      }
+
+      @media (max-width: 768px) and (orientation: landscape) {
+        .hero {
+          min-height: 100vh;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .scroll-indicator {
+          bottom: 1rem;
+        }
+
+        .lightbox-img {
+          max-height: 85vh;
+        }
+      }
     </style>
-
     <script>
-        // Optimized hero background loading
-        function loadHeroBackground() {
-            const heroBg = document.getElementById('heroBg');
-            const img = new Image();
-            
-            // Use smaller image for mobile
-            const isMobile = window.innerWidth <= 768;
-            const imageUrl = 'https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/2-2.JPG';
-            
-            img.onload = function() {
-                heroBg.style.backgroundImage = `url(${imageUrl})`;
-                heroBg.classList.add('loaded');
-            };
-            img.src = imageUrl;
-        }
-        
-        // Load hero background immediately
-        loadHeroBackground();
-
-        // Improved lazy loading for gallery images
-        const lazyImages = document.querySelectorAll('img.lazy');
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                    img.onload = () => {
-                        img.parentElement.classList.add('loaded');
-                        img.parentElement.classList.remove('loading');
-                    };
-                    observer.unobserve(img);
-                }
-            });
-        }, {
-            rootMargin: '50px 0px',
-            threshold: 0.01
-        });
-
-        lazyImages.forEach(img => imageObserver.observe(img));
-
-        // Lightbox functionality with preloading
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        const totalImages = galleryItems.length;
-        let currentImageIndex = 0;
-        let imageData = [];
-
-        // Initialize image data after lazy loading
-        function initializeImageData() {
-            imageData = Array.from(galleryItems).map(item => {
-                const img = item.querySelector('img');
-                return {
-                    src: img.dataset.src || img.src,
-                    alt: img.alt
-                };
-            });
-        }
-
-        // Call after DOM is loaded
-        document.addEventListener('DOMContentLoaded', initializeImageData);
-
-        document.getElementById('totalImages').textContent = totalImages;
-
-        function openLightbox(index) {
-            currentImageIndex = parseInt(index);
-            updateLightboxImage();
-            lightbox.classList.add('active');
-            document.body.classList.add('no-scroll');
-            setTimeout(() => lightbox.classList.add('show'), 10);
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove('show');
-            setTimeout(() => {
-                lightbox.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }, 300);
-        }
-
-        function updateLightboxImage() {
-            lightboxImg.style.opacity = '0';
-            lightboxImg.style.transform = 'scale(0.9)';
-            
-            setTimeout(() => {
-                if (imageData[currentImageIndex]) {
-                    lightboxImg.src = imageData[currentImageIndex].src;
-                    lightboxImg.alt = imageData[currentImageIndex].alt;
-                    document.getElementById('currentIndex').textContent = currentImageIndex + 1;
-                    lightboxImg.style.opacity = '1';
-                    lightboxImg.style.transform = 'scale(1)';
-                    
-                    // Preload adjacent images
-                    preloadImage(currentImageIndex - 1);
-                    preloadImage(currentImageIndex + 1);
-                }
-            }, 200);
-        }
-
-        function preloadImage(index) {
-            if (index >= 0 && index < totalImages && imageData[index]) {
-                const img = new Image();
-                img.src = imageData[index].src;
-            }
-        }
-
-        function previousImage() {
-            currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
-            updateLightboxImage();
-        }
-
-        function nextImage() {
-            currentImageIndex = (currentImageIndex + 1) % totalImages;
-            updateLightboxImage();
-        }
-
-        // Event listeners
-        galleryItems.forEach((item, index) => {
-            item.addEventListener('click', () => openLightbox(index));
-        });
-
-        document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-        document.querySelector('.lightbox-prev').addEventListener('click', e => {
-            e.stopPropagation();
-            previousImage();
-        });
-        document.querySelector('.lightbox-next').addEventListener('click', e => {
-            e.stopPropagation();
-            nextImage();
-        });
-
-        lightbox.addEventListener('click', e => {
-            if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
-                closeLightbox();
-            }
-        });
-
-        lightboxImg.addEventListener('click', e => e.stopPropagation());
-
-        // Keyboard navigation
-        document.addEventListener('keydown', e => {
-            if (!lightbox.classList.contains('active')) return;
-            switch(e.key) {
-                case 'Escape': closeLightbox(); break;
-                case 'ArrowLeft': previousImage(); break;
-                case 'ArrowRight': nextImage(); break;
-            }
-        });
-
-        // Touch swipe support
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        lightboxImg.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        lightboxImg.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) nextImage();
-                else previousImage();
-            }
-        }, { passive: true });
-
-        // Mobile menu
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        menuToggle.addEventListener('click', function() {
-            menuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Navbar scroll effect
-        let lastScrollY = 0;
-        let ticking = false;
-
-        function updateNavbar() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', function() {
-            lastScrollY = window.scrollY;
-            if (!ticking) {
-                window.requestAnimationFrame(updateNavbar);
-                ticking = true;
-            }
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offset = 70;
-                    const targetPosition = target.offsetTop - offset;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Performance: Use requestAnimationFrame for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+      // Optimized hero background loading
+      function loadHeroBackground() {
+        const heroBg = document.getElementById('heroBg');
+        const img = new Image();
+        // Use smaller image for mobile
+        const isMobile = window.innerWidth <= 768;
+        const imageUrl = 'https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/2-2.JPG';
+        img.onload = function() {
+          heroBg.style.backgroundImage = `url(${imageUrl})`;
+          heroBg.classList.add('loaded');
         };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    requestAnimationFrame(() => {
-                        entry.target.classList.add('loaded');
-                        entry.target.classList.remove('loading');
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            observer.observe(item);
+        img.src = imageUrl;
+      }
+      // Load hero background immediately
+      loadHeroBackground();
+      // Improved lazy loading for gallery images
+      const lazyImages = document.querySelectorAll('img.lazy');
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            img.onload = () => {
+              img.parentElement.classList.add('loaded');
+              img.parentElement.classList.remove('loading');
+            };
+            observer.unobserve(img);
+          }
         });
+      }, {
+        rootMargin: '50px 0px',
+        threshold: 0.01
+      });
+      lazyImages.forEach(img => imageObserver.observe(img));
+      // Lightbox functionality with preloading
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const totalImages = galleryItems.length;
+      let currentImageIndex = 0;
+      let imageData = [];
+      // Initialize image data after lazy loading
+      function initializeImageData() {
+        imageData = Array.from(galleryItems).map(item => {
+          const img = item.querySelector('img');
+          return {
+            src: img.dataset.src || img.src,
+            alt: img.alt
+          };
+        });
+      }
+      // Call after DOM is loaded
+      document.addEventListener('DOMContentLoaded', initializeImageData);
+      document.getElementById('totalImages').textContent = totalImages;
+
+      function openLightbox(index) {
+        currentImageIndex = parseInt(index);
+        updateLightboxImage();
+        lightbox.classList.add('active');
+        document.body.classList.add('no-scroll');
+        setTimeout(() => lightbox.classList.add('show'), 10);
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('show');
+        setTimeout(() => {
+          lightbox.classList.remove('active');
+          document.body.classList.remove('no-scroll');
+        }, 300);
+      }
+
+      function updateLightboxImage() {
+        lightboxImg.style.opacity = '0';
+        lightboxImg.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          if (imageData[currentImageIndex]) {
+            lightboxImg.src = imageData[currentImageIndex].src;
+            lightboxImg.alt = imageData[currentImageIndex].alt;
+            document.getElementById('currentIndex').textContent = currentImageIndex + 1;
+            lightboxImg.style.opacity = '1';
+            lightboxImg.style.transform = 'scale(1)';
+            // Preload adjacent images
+            preloadImage(currentImageIndex - 1);
+            preloadImage(currentImageIndex + 1);
+          }
+        }, 200);
+      }
+
+      function preloadImage(index) {
+        if (index >= 0 && index < totalImages && imageData[index]) {
+          const img = new Image();
+          img.src = imageData[index].src;
+        }
+      }
+
+      function previousImage() {
+        currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+        updateLightboxImage();
+      }
+
+      function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % totalImages;
+        updateLightboxImage();
+      }
+      // Event listeners
+      galleryItems.forEach((item, index) => {
+        item.addEventListener('click', () => openLightbox(index));
+      });
+      document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+      document.querySelector('.lightbox-prev').addEventListener('click', e => {
+        e.stopPropagation();
+        previousImage();
+      });
+      document.querySelector('.lightbox-next').addEventListener('click', e => {
+        e.stopPropagation();
+        nextImage();
+      });
+      lightbox.addEventListener('click', e => {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+          closeLightbox();
+        }
+      });
+      lightboxImg.addEventListener('click', e => e.stopPropagation());
+      // Keyboard navigation
+      document.addEventListener('keydown', e => {
+        if (!lightbox.classList.contains('active')) return;
+        switch (e.key) {
+          case 'Escape':
+            closeLightbox();
+            break;
+          case 'ArrowLeft':
+            previousImage();
+            break;
+          case 'ArrowRight':
+            nextImage();
+            break;
+        }
+      });
+      // Touch swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      lightboxImg.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, {
+        passive: true
+      });
+      lightboxImg.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) nextImage();
+          else previousImage();
+        }
+      }, {
+        passive: true
+      });
+      // Mobile menu
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+      menuToggle.addEventListener('click', function() {
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+      });
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+      // Navbar scroll effect
+      let lastScrollY = 0;
+      let ticking = false;
+
+      function updateNavbar() {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        ticking = false;
+      }
+      window.addEventListener('scroll', function() {
+        lastScrollY = window.scrollY;
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavbar);
+          ticking = true;
+        }
+      });
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            const offset = 70;
+            const targetPosition = target.offsetTop - offset;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      // Performance: Use requestAnimationFrame for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            requestAnimationFrame(() => {
+              entry.target.classList.add('loaded');
+              entry.target.classList.remove('loading');
+            });
+          }
+        });
+      }, observerOptions);
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        observer.observe(item);
+      });
     </script>
-</body>
+  </body>
 </html>
