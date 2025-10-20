@@ -34,6 +34,10 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        body.no-scroll {
+            overflow: hidden;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -244,8 +248,163 @@
             transition: transform 0.5s ease;
         }
 
+        /* Special positioning for wedding photo */
+        .gallery-item:nth-child(2) img {
+            object-position: center 70%;
+        }
+
         .gallery-item:hover img {
             transform: scale(1.05);
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.show {
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .lightbox.show .lightbox-img {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2001;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-close::before,
+        .lightbox-close::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: white;
+        }
+
+        .lightbox-close::before {
+            transform: rotate(45deg);
+        }
+
+        .lightbox-close::after {
+            transform: rotate(-45deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2001;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-nav::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-top: 2px solid white;
+            border-right: 2px solid white;
+        }
+
+        .lightbox-prev::after {
+            transform: rotate(-135deg);
+            margin-left: 4px;
+        }
+
+        .lightbox-next::after {
+            transform: rotate(45deg);
+            margin-right: 4px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         /* About Section */
@@ -440,6 +599,19 @@
                 width: 200px;
                 justify-content: center;
             }
+
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
         }
 
         /* Responsive - Small Mobile */
@@ -473,6 +645,11 @@
             .about p {
                 font-size: 0.95rem;
             }
+
+            .lightbox-img {
+                max-width: 95vw;
+                max-height: 80vh;
+            }
         }
 
         /* Touch device optimizations */
@@ -502,6 +679,15 @@
             .email-link:active {
                 transform: scale(0.98);
             }
+
+            .lightbox-nav:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .lightbox-close:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: none;
+            }
         }
 
         /* High resolution screens */
@@ -523,6 +709,10 @@
             
             .scroll-indicator {
                 bottom: 1rem;
+            }
+
+            .lightbox-img {
+                max-height: 85vh;
             }
         }
     </style>
@@ -557,27 +747,39 @@
     <section class="portfolio" id="portfolio">
         <h2 class="section-title">Selected Works</h2>
         <div class="gallery">
-            <!-- Replace these with your actual images -->
-            <div class="gallery-item loading">
+            <div class="gallery-item loading" data-index="0">
                 <img src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC1442.jpg" alt="Portrait Photography" loading="lazy">
             </div>
-            <div class="gallery-item loading">
+            <div class="gallery-item loading" data-index="1">
                 <img src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC1292.jpg" alt="Wedding Photography" loading="lazy">
             </div>
-            <div class="gallery-item loading">
+            <div class="gallery-item loading" data-index="2">
                 <img src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC2398.jpg" alt="Nature Photography" loading="lazy">
             </div>
-            <div class="gallery-item loading">
-                <img src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC2512.jpg" alt="Aethsetic Photography" loading="lazy">
+            <div class="gallery-item loading" data-index="3">
+                <img src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC2512.jpg" alt="Aesthetic Photography" loading="lazy">
             </div>
-            <div class="gallery-item loading">
+            <div class="gallery-item loading" data-index="4">
                 <img src="https://source.unsplash.com/800x600/?nature" alt="need more Photography" loading="lazy">
             </div>
-            <div class="gallery-item loading">
+            <div class="gallery-item loading" data-index="5">
                 <img src="https://source.unsplash.com/800x600/?minimal" alt="need more Photography" loading="lazy">
             </div>
         </div>
     </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close"></button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous"></button>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-img" id="lightboxImg">
+        </div>
+        <button class="lightbox-nav lightbox-next" aria-label="Next"></button>
+        <div class="lightbox-counter">
+            <span id="currentIndex">1</span> / <span id="totalImages">6</span>
+        </div>
+    </div>
 
     <!-- About Section -->
     <section class="about" id="about">
