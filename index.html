@@ -798,7 +798,61 @@
           width: 200px;
           justify-content: center;
         }
-
+		.nav-links a.scrolling {
+		    color: var(--accent);
+		}
+		// Enhanced Smooth Scrolling with easing
+		document.addEventListener('DOMContentLoaded', function() {
+		    // Smooth scroll for all anchor links
+		    const smoothScroll = (target, duration = 1000) => {
+		        const targetElement = document.querySelector(target);
+		        if (!targetElement) return;
+		        
+		        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+		        const startPosition = window.pageYOffset;
+		        const navHeight = document.getElementById('navbar').offsetHeight;
+		        const distance = targetPosition - startPosition - navHeight;
+		        let startTime = null;
+		        
+		        // Easing function for smooth animation
+		        const ease = (t, b, c, d) => {
+		            t /= d / 2;
+		            if (t < 1) return c / 2 * t * t + b;
+		            t--;
+		            return -c / 2 * (t * (t - 2) - 1) + b;
+		        };
+		        
+		        const animation = currentTime => {
+		            if (startTime === null) startTime = currentTime;
+		            const timeElapsed = currentTime - startTime;
+		            const run = ease(timeElapsed, startPosition, distance, duration);
+		            window.scrollTo(0, run);
+		            if (timeElapsed < duration) requestAnimationFrame(animation);
+		        };
+		        
+		        requestAnimationFrame(animation);
+		    };
+		    
+		    // Apply smooth scrolling to all nav links
+		    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		        anchor.addEventListener('click', function(e) {
+		            e.preventDefault();
+		            const targetId = this.getAttribute('href');
+		            
+		            // Close mobile menu if open
+		            const menuToggle = document.getElementById('menuToggle');
+		            const navLinks = document.getElementById('navLinks');
+		            if (navLinks.classList.contains('active')) {
+		                menuToggle.classList.remove('active');
+		                navLinks.classList.remove('active');
+		                document.body.style.overflow = '';
+		            }
+		            
+		            // Smooth scroll to target
+		            smoothScroll(targetId, 800); // 800ms duration
+		        });
+		    });
+		});
         .lightbox-nav {
           width: 40px;
           height: 40px;
