@@ -20,21 +20,6 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="MPhotography_CM">
     <meta property="og:locale" content="en_US">
-     <audio id="backgroundMusic" autoplay loop>
-    <source src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/soothing-ocean-waves-372489.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-    // Try to play automatically
-    window.addEventListener('load', function() {
-        var audio = document.getElementById('backgroundMusic');
-        audio.play().catch(function(error) {
-            console.log("Autoplay prevented");
-            // Show a play button if autoplay fails
-            document.body.innerHTML += '<button onclick="document.getElementById(\'backgroundMusic\').play(); this.remove();" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; padding: 20px; background: #000; color: white; border: none; border-radius: 10px; cursor: pointer;">🎵 Click to Enable Sound</button>';
-        });
-    });
-</script>
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@mphotography_cm">
@@ -798,61 +783,6 @@
           width: 200px;
           justify-content: center;
         }
-		.nav-links a.scrolling {
-		    color: var(--accent);
-		}
-		// Enhanced Smooth Scrolling with easing
-		document.addEventListener('DOMContentLoaded', function() {
-		    // Smooth scroll for all anchor links
-		    const smoothScroll = (target, duration = 1000) => {
-		        const targetElement = document.querySelector(target);
-		        if (!targetElement) return;
-		        
-		        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-		        const startPosition = window.pageYOffset;
-		        const navHeight = document.getElementById('navbar').offsetHeight;
-		        const distance = targetPosition - startPosition - navHeight;
-		        let startTime = null;
-		        
-		        // Easing function for smooth animation
-		        const ease = (t, b, c, d) => {
-		            t /= d / 2;
-		            if (t < 1) return c / 2 * t * t + b;
-		            t--;
-		            return -c / 2 * (t * (t - 2) - 1) + b;
-		        };
-		        
-		        const animation = currentTime => {
-		            if (startTime === null) startTime = currentTime;
-		            const timeElapsed = currentTime - startTime;
-		            const run = ease(timeElapsed, startPosition, distance, duration);
-		            window.scrollTo(0, run);
-		            if (timeElapsed < duration) requestAnimationFrame(animation);
-		        };
-		        
-		        requestAnimationFrame(animation);
-		    };
-		    
-		    // Apply smooth scrolling to all nav links
-		    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-		        anchor.addEventListener('click', function(e) {
-		            e.preventDefault();
-		            const targetId = this.getAttribute('href');
-		            
-		            // Close mobile menu if open
-		            const menuToggle = document.getElementById('menuToggle');
-		            const navLinks = document.getElementById('navLinks');
-		            if (navLinks.classList.contains('active')) {
-		                menuToggle.classList.remove('active');
-		                navLinks.classList.remove('active');
-		                document.body.style.overflow = '';
-		            }
-		            
-		            // Smooth scroll to target
-		            smoothScroll(targetId, 800); // 800ms duration
-		        });
-		    });
-		});
         .lightbox-nav {
           width: 40px;
           height: 40px;
