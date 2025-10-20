@@ -90,6 +90,43 @@
             padding: 0 5%;
             position: relative;
         }
+        /* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 5%;
+    position: relative;
+    /* Add background image */
+    background-image: url('https://source.unsplash.com/1920x1080/?photography,camera');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Add overlay for better text readability */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay - adjust opacity as needed */
+    z-index: 1;
+}
+
+/* Ensure text appears above overlay */
+.hero h1,
+.hero .subtitle,
+.hero .scroll-indicator {
+    position: relative;
+    z-index: 2;
+}
 
         .hero h1 {
             font-size: clamp(3rem, 8vw, 6rem);
