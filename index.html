@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="MPhotography_CM - Professional photography services in Tri-Cities">
+    <meta name="theme-color" content="#000000">
     <title>MPhotography_CM - Photography</title>
     <style>
         * {
@@ -28,6 +30,8 @@
             line-height: 1.6;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Navigation */
@@ -60,6 +64,7 @@
             font-size: 1.2rem;
             font-weight: 500;
             letter-spacing: -0.5px;
+            z-index: 1001;
         }
 
         .nav-links {
@@ -73,15 +78,52 @@
             text-decoration: none;
             font-size: 0.95rem;
             transition: color 0.3s ease;
+            padding: 0.5rem 0;
         }
 
         .nav-links a:hover {
             color: var(--text-primary);
         }
 
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
+            min-height: 500px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -89,60 +131,50 @@
             text-align: center;
             padding: 0 5%;
             position: relative;
+            background-image: url('https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/2-2.JPG');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-        /* Hero Section */
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 5%;
-    position: relative;
-    /* Add background image */
-    background-image: url('https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/2-2.JPG');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
 
-/* Add overlay for better text readability */
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay - adjust opacity as needed */
-    z-index: 1;
-}
+        /* Add overlay for better text readability */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
 
-/* Ensure text appears above overlay */
-.hero h1,
-.hero .subtitle,
-.hero .scroll-indicator {
-    position: relative;
-    z-index: 2;
-}
+        /* Ensure text appears above overlay */
+        .hero h1,
+        .hero .subtitle,
+        .hero .scroll-indicator {
+            position: relative;
+            z-index: 2;
+        }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2.5rem, 8vw, 6rem);
             font-weight: 600;
             letter-spacing: -2px;
             margin-bottom: 1rem;
             opacity: 0;
             animation: fadeInUp 1s ease forwards;
+            padding: 0 1rem;
         }
 
         .hero .subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-size: clamp(1rem, 3vw, 1.8rem);
             color: var(--text-secondary);
             font-weight: 300;
             opacity: 0;
             animation: fadeInUp 1s ease 0.2s forwards;
+            padding: 0 1rem;
+            max-width: 90%;
         }
 
         .scroll-indicator {
@@ -177,7 +209,7 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 5vw, 2.5rem);
             margin-bottom: 3rem;
             font-weight: 500;
             letter-spacing: -1px;
@@ -185,7 +217,7 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
             gap: 1.5rem;
             margin-bottom: 5rem;
         }
@@ -198,6 +230,7 @@
             aspect-ratio: 4/3;
             cursor: pointer;
             transition: transform 0.5s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .gallery-item:hover {
@@ -228,7 +261,7 @@
         }
 
         .about p {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
             color: var(--text-secondary);
             line-height: 1.8;
             margin-bottom: 2rem;
@@ -247,6 +280,7 @@
             justify-content: center;
             gap: 2rem;
             margin-top: 3rem;
+            flex-wrap: wrap;
         }
 
         .social-link {
@@ -260,9 +294,11 @@
             color: var(--text-primary);
             text-decoration: none;
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 48px;
         }
 
-        .social-link:hover {
+        .social-link:hover, .social-link:active {
             background: var(--border);
             transform: translateY(-2px);
         }
@@ -282,9 +318,13 @@
             border-radius: 100px;
             font-weight: 500;
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
         }
 
-        .email-link:hover {
+        .email-link:hover, .email-link:active {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(0, 113, 227, 0.3);
         }
@@ -294,7 +334,7 @@
             padding: 3rem 5%;
             text-align: center;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 2vw, 0.9rem);
             border-top: 1px solid var(--border);
         }
 
@@ -319,27 +359,6 @@
             50% { transform: translateX(-50%) translateY(8px); }
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-            
-            .social-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .social-link {
-                width: 200px;
-                justify-content: center;
-            }
-        }
-
         /* Loading state */
         .loading {
             opacity: 0;
@@ -351,6 +370,161 @@
             transform: translateY(0);
             transition: all 0.8s ease;
         }
+
+        /* Responsive - Tablets */
+        @media (max-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1rem;
+            }
+            
+            .hero {
+                background-attachment: scroll;
+                background-size: cover;
+                background-position: center;
+            }
+            
+            .gallery {
+                gap: 1rem;
+            }
+            
+            .portfolio, .about, .contact {
+                padding: 3rem 5%;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .social-link {
+                width: 200px;
+                justify-content: center;
+            }
+        }
+
+        /* Responsive - Small Mobile */
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 100vh;
+                padding: 0 3%;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                letter-spacing: -1px;
+            }
+            
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio, .about, .contact {
+                padding: 2rem 3%;
+            }
+            
+            .about p {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .gallery-item:hover {
+                transform: none;
+            }
+            
+            .gallery-item:active {
+                transform: scale(0.98);
+            }
+            
+            .social-link:hover {
+                transform: none;
+                background: var(--bg-card);
+            }
+            
+            .social-link:active {
+                background: var(--border);
+            }
+            
+            .email-link:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .email-link:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* High resolution screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .hero {
+                background-image: url('https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/2-2.JPG');
+            }
+        }
+
+        /* Landscape orientation for mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                min-height: 100vh;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .scroll-indicator {
+                bottom: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -358,7 +532,12 @@
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo">MPhotography_CM</div>
-            <ul class="nav-links">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#about">About</a></li>
@@ -380,22 +559,22 @@
         <div class="gallery">
             <!-- Replace these with your actual images -->
             <div class="gallery-item loading">
-                <img src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC1442.jpg" alt="Portrait Photography">
+                <img src="https://raw.githubusercontent.com/michaellittleboi-blip/michaellittleboi-blip.github.io/refs/heads/main/_DSC1442.jpg" alt="Portrait Photography" loading="lazy">
             </div>
             <div class="gallery-item loading">
-                <img src="https://source.unsplash.com/800x600/?landscape" alt="Landscape Photography">
+                <img src="https://source.unsplash.com/800x600/?landscape" alt="Landscape Photography" loading="lazy">
             </div>
             <div class="gallery-item loading">
-                <img src="https://source.unsplash.com/800x600/?street" alt="Street Photography">
+                <img src="https://source.unsplash.com/800x600/?street" alt="Street Photography" loading="lazy">
             </div>
             <div class="gallery-item loading">
-                <img src="https://source.unsplash.com/800x600/?architecture" alt="Architecture Photography">
+                <img src="https://source.unsplash.com/800x600/?architecture" alt="Architecture Photography" loading="lazy">
             </div>
             <div class="gallery-item loading">
-                <img src="https://source.unsplash.com/800x600/?nature" alt="Nature Photography">
+                <img src="https://source.unsplash.com/800x600/?nature" alt="Nature Photography" loading="lazy">
             </div>
             <div class="gallery-item loading">
-                <img src="https://source.unsplash.com/800x600/?minimal" alt="Minimal Photography">
+                <img src="https://source.unsplash.com/800x600/?minimal" alt="Minimal Photography" loading="lazy">
             </div>
         </div>
     </section>
@@ -407,7 +586,6 @@
             <p>
                 I'm a passionate young photographer based in Tri-Cities, who is waiting and willing to take your next
                 portrait pictures, one shot at a time. 
-                
             </p>
             <p>
                 My work spans across portrait, and weddings  
@@ -424,7 +602,7 @@
         </p>
         
         <div class="social-links">
-            <a href="https://www.instagram.com/mphotography_cm/" class="social-link" target="_blank">
+            <a href="https://www.instagram.com/mphotography_cm/" class="social-link" target="_blank" rel="noopener noreferrer">
                 <svg fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"/>
                 </svg>
@@ -441,6 +619,25 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
@@ -457,9 +654,11 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const offset = 70; // Height of fixed navbar
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -468,7 +667,7 @@
         // Gallery items animation on scroll
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver(function(entries) {
@@ -485,13 +684,36 @@
             observer.observe(item);
         });
 
-        // Add click event to gallery items (you can expand this to open a lightbox)
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', function() {
-                // You can add lightbox functionality here
-                console.log('Gallery item clicked');
-            });
+        // Optimize hero background for mobile
+        function optimizeHeroBackground() {
+            const hero = document.querySelector('.hero');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // Remove fixed attachment on mobile for better performance
+                hero.style.backgroundAttachment = 'scroll';
+            } else {
+                hero.style.backgroundAttachment = 'fixed';
+            }
+        }
+
+        // Call on load and resize
+        optimizeHeroBackground();
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(optimizeHeroBackground, 250);
         });
+
+        // Prevent double-tap zoom on iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
